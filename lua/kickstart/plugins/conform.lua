@@ -14,7 +14,7 @@ return {
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -34,12 +34,10 @@ return {
 
         -- Added by Jack:
         python = {
-          -- To fix auto-fixable lint errors.
-          'ruff_fix',
-          -- To run the Ruff formatter.
-          'ruff_format',
-          -- To organize the imports.
-          'ruff_organize_imports',
+          'docformatter',
+          'ruff_fix', -- To fix auto-fixable lint errors.
+          'ruff_format', -- To run the Ruff formatter.
+          'ruff_organize_imports', -- To organize the imports.
           -- lsp_format = 'first',
         },
 

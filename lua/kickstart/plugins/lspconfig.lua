@@ -230,11 +230,7 @@ return {
         -- ts_ls = {},
         --
 
-        ruff = { -- Added by Jack
-          -- settings = {
-          --   configurationPreference = 'filesystemFirst',
-          -- },
-        },
+        ruff = {}, -- Added by Jack
 
         -- https://github.com/python-lsp/python-lsp-server
         --
@@ -265,12 +261,17 @@ return {
         --   settings = {
         --     pylsp = {
         --       plugins = {
+        --         pylsp_mypy = { enabled = false },
+        --         jedi = { environment = vim.fn.getcwd() .. '/.venv' },
         --         -- Disable plugins that are provided by ruff!
         --         pycodestyle = { enabled = false },
+        --         pydocstyle = { enabled = false },
         --         pyflakes = { enabled = false },
         --         mccabe = { enabled = false },
         --         autopep8 = { enabled = false },
         --         yapf = { enabled = false },
+        --         pylsp_black = { enabled = false },
+        --         pylsp_isort = { enabled = false },
         --       },
         --     },
         --   },
@@ -313,7 +314,10 @@ return {
 
         -- The following were added by Jack for `lint`:
         'vale', -- For markdown linting.
-        -- 'mypy',
+        'mypy',
+
+        -- The following were added by Jack for `conform`:
+        'docformatter', -- For formatting Python docstrings.
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

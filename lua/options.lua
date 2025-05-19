@@ -75,4 +75,7 @@ vim.o.confirm = true
 vim.opt.spelllang = 'en_gb'
 vim.opt.spell = true
 
+-- Added by Jack so gw can be used to wrap a visual selection to 100 characters wide:
+vim.opt.textwidth = 100
+
 -- vim: ts=2 sts=2 sw=2 et
