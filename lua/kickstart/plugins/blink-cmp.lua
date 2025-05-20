@@ -4,8 +4,7 @@ return {
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
-      -- Snippet Engine
-      {
+      { -- Snippet Engine
         'L3MON4D3/LuaSnip',
         version = '2.*',
         build = (function()
@@ -73,12 +72,26 @@ return {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+
+        -- Recommended by minuet documentation to avoid unnecessary request:
+        trigger = { prefetch_on_insert = false },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'codecompanion' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet', 'codecompanion' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+
+          -- For manual completion only, remove 'minuet' from default
+          minuet = {
+            name = 'minuet',
+            module = 'minuet.blink',
+            async = true,
+            -- Should match minuet.config.request_timeout * 1000,
+            -- since minuet.config.request_timeout is in seconds
+            timeout_ms = 3000,
+            score_offset = 50, -- Gives minuet higher priority among suggestions
+          },
         },
       },
 
