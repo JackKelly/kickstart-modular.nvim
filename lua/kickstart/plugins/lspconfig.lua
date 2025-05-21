@@ -257,26 +257,29 @@ return {
         -- ```
         --
         -- Note: This is a community fork of `pylsp`.
-        -- pylsp = {
-        --   settings = {
-        --     pylsp = {
-        --       plugins = {
-        --         pylsp_mypy = { enabled = false },
-        --         jedi = { environment = vim.fn.getcwd() .. '/.venv' },
-        --         -- Disable plugins that are provided by ruff!
-        --         pycodestyle = { enabled = false },
-        --         pydocstyle = { enabled = false },
-        --         pyflakes = { enabled = false },
-        --         mccabe = { enabled = false },
-        --         autopep8 = { enabled = false },
-        --         yapf = { enabled = false },
-        --         pylsp_black = { enabled = false },
-        --         pylsp_isort = { enabled = false },
-        --       },
-        --     },
-        --   },
-        -- }, -- Added by Jack
         --
+        -- Added by Jack. Until Astral's `ty` is ready, we'll need `pylsp` for LSP functions like
+        -- renaming, which isn't provided by `ruff`.
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pylsp_mypy = { enabled = false },
+                jedi = { environment = vim.fn.getcwd() .. '/.venv' },
+                -- Disable plugins that are provided by ruff!
+                pycodestyle = { enabled = false },
+                pydocstyle = { enabled = false },
+                pyflakes = { enabled = false },
+                mccabe = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                pylsp_black = { enabled = false },
+                pylsp_isort = { enabled = false },
+              },
+            },
+          },
+        },
+
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
