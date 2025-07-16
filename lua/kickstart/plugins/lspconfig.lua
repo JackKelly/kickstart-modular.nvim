@@ -19,7 +19,12 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
+      {
+        'mason-org/mason.nvim',
+        opts = {
+          PATH = 'append', -- Ensure we prefer local binaries where possible
+        },
+      },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -216,69 +221,22 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      --
+      -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+      --
+      -- Some languages (like typescript) have entire language plugins that can be useful:
+      --    https://github.com/pmizio/typescript-tools.nvim
+      --
+      -- But for many setups, the LSP (`ts_ls`) will work just fine
+      -- ts_ls = {},
+      --
       local servers = {
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
         rust_analyzer = {}, -- Uncommented by Jack
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-        --
 
         ruff = {}, -- Added by Jack
-
-        -- https://github.com/python-lsp/python-lsp-server
-        --
-        -- A Python 3.6+ implementation of the Language Server Protocol.
-        --
-        -- See the [project's README](https://github.com/python-lsp/python-lsp-server) for installation instructions.
-        --
-        -- Configuration options are documented [here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md).
-        -- In order to configure an option, it must be translated to a nested Lua table and included in the `settings` argument to the `setup{}` function.
-        -- For example, in order to set the `pylsp.plugins.pycodestyle.ignore` option:
-        -- ```lua
-        -- require'lspconfig'.pylsp.setup{
-        --   settings = {
-        --     pylsp = {
-        --       plugins = {
-        --         pycodestyle = {
-        --           ignore = {'W391'},
-        --           maxLineLength = 100
-        --         }
-        --       }
-        --     }
-        --   }
-        -- }
-        -- ```
-        --
-        -- Note: This is a community fork of `pylsp`.
-        --
-        -- Added by Jack. Until Astral's `ty` is ready, we'll need `pylsp` for LSP functions like
-        -- renaming, which isn't provided by `ruff`.
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                pylsp_mypy = { enabled = false },
-                jedi = { environment = vim.fn.getcwd() .. '/.venv' },
-                -- Disable plugins that are provided by ruff!
-                pycodestyle = { enabled = false },
-                pydocstyle = { enabled = false },
-                pyflakes = { enabled = false },
-                mccabe = { enabled = false },
-                autopep8 = { enabled = false },
-                yapf = { enabled = false },
-                pylsp_black = { enabled = false },
-                pylsp_isort = { enabled = false },
-              },
-            },
-          },
-        },
 
         lua_ls = {
           -- cmd = { ... },
@@ -321,6 +279,38 @@ return {
 
         -- The following were added by Jack for `conform`:
         'docformatter', -- For formatting Python docstrings.
+
+        -- https://github.com/python-lsp/python-lsp-server
+        --
+        -- A Python 3.6+ implementation of the Language Server Protocol.
+        --
+        -- See the [project's README](https://github.com/python-lsp/python-lsp-server) for installation instructions.
+        --
+        -- Configuration options are documented [here](https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md).
+        -- In order to configure an option, it must be translated to a nested Lua table and included in the `settings` argument to the `setup{}` function.
+        -- For example, in order to set the `pylsp.plugins.pycodestyle.ignore` option:
+        -- ```lua
+        -- require'lspconfig'.pylsp.setup{
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pycodestyle = {
+        --           ignore = {'W391'},
+        --           maxLineLength = 100
+        --         }
+        --       }
+        --     }
+        --   }
+        -- }
+        -- ```
+        --
+        -- Note: This is a community fork of `pylsp`.
+        --
+        -- Added by Jack. Until Astral's `ty` is ready, we'll need `pylsp` for LSP functions like
+        -- renaming, which isn't provided by `ruff`.
+        --
+        -- Configuration of pylsp is performed lower down in this file.
+        'pylsp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -338,6 +328,30 @@ return {
           end,
         },
       }
+
+      vim.lsp.config('pylsp', {
+        settings = {
+          pylsp = {
+            plugins = {
+              pylsp_mypy = { enabled = false },
+              jedi = { environment = vim.fn.getcwd() .. '/.venv' },
+              -- Disable plugins that are provided by ruff!
+              pycodestyle = {
+                enabled = false,
+              },
+              pydocstyle = { enabled = false },
+              pylint = { enabled = false },
+              flake8 = { enabled = false },
+              pyflakes = { enabled = false },
+              mccabe = { enabled = false },
+              autopep8 = { enabled = false },
+              yapf = { enabled = false },
+              pylsp_black = { enabled = false },
+              pylsp_isort = { enabled = false },
+            },
+          },
+        },
+      })
     end,
   },
 }
