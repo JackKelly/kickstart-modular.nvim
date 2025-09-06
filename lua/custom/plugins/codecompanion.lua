@@ -19,18 +19,20 @@ return {
         },
       },
       adapters = {
-        gemini = function()
-          return require('codecompanion.adapters').extend('gemini', {
-            schema = {
-              model = {
-                default = 'gemini-2.0-flash-lite',
+        http = {
+          gemini = function()
+            return require('codecompanion.adapters').extend('gemini', {
+              schema = {
+                model = {
+                  default = 'gemini-2.0-flash-lite',
+                },
               },
+            })
+          end,
+          display = {
+            diff = {
+              provider = 'mini_diff',
             },
-          })
-        end,
-        display = {
-          diff = {
-            provider = 'mini_diff',
           },
         },
       },
