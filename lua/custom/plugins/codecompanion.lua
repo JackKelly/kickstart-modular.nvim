@@ -19,21 +19,17 @@ return {
         },
       },
       adapters = {
-        http = {
-          gemini = function()
-            return require('codecompanion.adapters').extend('gemini', {
-              schema = {
-                model = {
-                  default = 'gemini-2.0-flash-lite',
-                },
+        acp = {
+          gemini_cli = function()
+            return require('codecompanion.adapters').extend('gemini_cli', {
+              defaults = {
+                auth_method = 'gemini-api-key', -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+              },
+              env = {
+                GEMINI_API_KEY = 'cmd:op read op://personal/Gemini_API/credential --no-newline',
               },
             })
           end,
-          display = {
-            diff = {
-              provider = 'mini_diff',
-            },
-          },
         },
       },
     },
