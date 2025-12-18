@@ -78,4 +78,17 @@ vim.opt.spell = true
 -- Added by Jack so gw can be used to wrap a visual selection to 100 characters wide:
 vim.opt.textwidth = 100
 
+-- Optional: Only required if you need to update the language server settings
+vim.lsp.config('ty', {
+  settings = {
+    ty = {
+      -- ty language server settings go here
+    },
+  },
+})
+
+-- Required: Enable the language server
+vim.lsp.enable 'ty'
+-- Also need to install `ty`: uv tool install ty@latest
+
 -- vim: ts=2 sts=2 sw=2 et
