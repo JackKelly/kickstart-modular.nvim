@@ -275,7 +275,8 @@ return {
 
         -- The following were added by Jack for `lint`:
         'vale', -- For markdown linting.
-        'mypy',
+        -- 'mypy', -- Jack disabled mypy on 19th Dec 2025, in favour of ty.
+        'ty',
 
         -- The following were added by Jack for `conform`:
         'docformatter', -- For formatting Python docstrings.
@@ -309,8 +310,10 @@ return {
         -- Added by Jack. Until Astral's `ty` is ready, we'll need `pylsp` for LSP functions like
         -- renaming, which isn't provided by `ruff`.
         --
+        -- UPDATE 19th Dec 2025: Jack has disabled pylsp and mypy, so we only use ty!
+        --
         -- Configuration of pylsp is performed lower down in this file.
-        'pylsp',
+        -- 'pylsp',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -329,29 +332,30 @@ return {
         },
       }
 
-      vim.lsp.config('pylsp', {
-        settings = {
-          pylsp = {
-            plugins = {
-              pylsp_mypy = { enabled = false },
-              jedi = { environment = vim.fn.getcwd() .. '/.venv' },
-              -- Disable plugins that are provided by ruff!
-              pycodestyle = {
-                enabled = false,
-              },
-              pydocstyle = { enabled = false },
-              pylint = { enabled = false },
-              flake8 = { enabled = false },
-              pyflakes = { enabled = false },
-              mccabe = { enabled = false },
-              autopep8 = { enabled = false },
-              yapf = { enabled = false },
-              pylsp_black = { enabled = false },
-              pylsp_isort = { enabled = false },
-            },
-          },
-        },
-      })
+      -- UPDATE 19th Dec 2025: Jack disabled pylsp in favour of ty
+      -- vim.lsp.config('pylsp', {
+      --   settings = {
+      --     pylsp = {
+      --       plugins = {
+      --         pylsp_mypy = { enabled = false },
+      --         jedi = { environment = vim.fn.getcwd() .. '/.venv' },
+      --         -- Disable plugins that are provided by ruff!
+      --         pycodestyle = {
+      --           enabled = false,
+      --         },
+      --         pydocstyle = { enabled = false },
+      --         pylint = { enabled = false },
+      --         flake8 = { enabled = false },
+      --         pyflakes = { enabled = false },
+      --         mccabe = { enabled = false },
+      --         autopep8 = { enabled = false },
+      --         yapf = { enabled = false },
+      --         pylsp_black = { enabled = false },
+      --         pylsp_isort = { enabled = false },
+      --       },
+      --     },
+      --   },
+      -- })
     end,
   },
 }
