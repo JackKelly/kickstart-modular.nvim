@@ -32,7 +32,7 @@ return {
       lint.linters_by_ft['janet'] = nil
       lint.linters_by_ft['json'] = nil
       lint.linters_by_ft['markdown'] = { 'vale' }
-      lint.linters_by_ft['python'] = { 'ruff', 'mypy' }
+      lint.linters_by_ft['python'] = { 'ruff' } -- Jack removed 'mypy' on 2026-01-07
       lint.linters_by_ft['rst'] = { 'vale' }
       lint.linters_by_ft['ruby'] = nil
       lint.linters_by_ft['terraform'] = nil
