@@ -279,7 +279,8 @@ return {
         'ty',
 
         -- The following were added by Jack for `conform`:
-        'docformatter', -- For formatting Python docstrings.
+        -- 'docformatter', -- For formatting Python docstrings. Jack disabled whilst working on
+        -- Dynamical reformatters.
 
         -- https://github.com/python-lsp/python-lsp-server
         --

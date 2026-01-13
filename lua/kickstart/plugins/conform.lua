@@ -34,7 +34,7 @@ return {
 
         -- Added by Jack:
         python = {
-          'docformatter',
+          -- 'docformatter',  -- Disabled by Jack whilst working on Dynamical
           'ruff_fix', -- To fix auto-fixable lint errors.
           'ruff_format', -- To run the Ruff formatter.
           'ruff_organize_imports', -- To organize the imports.
