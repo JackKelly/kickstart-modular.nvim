@@ -275,7 +275,7 @@ return {
 
         -- The following were added by Jack for `lint`:
         'vale', -- For markdown linting.
-        -- 'mypy', -- Jack disabled mypy on 19th Dec 2025, in favour of ty.
+        'mypy', -- Jack disabled mypy on 19th Dec 2025, in favour of ty.
         'ty',
 
         -- The following were added by Jack for `conform`:
