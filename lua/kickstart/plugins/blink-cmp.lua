@@ -83,7 +83,7 @@ return {
         },
 
         sources = {
-          default = { 'lsp', 'path', 'snippets', 'lazydev' }, -- 'minuet', 'codecompanion'
+          default = { 'lsp', 'path', 'snippets', 'lazydev', 'codecompanion' }, -- 'minuet'
           providers = {
             lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
 
