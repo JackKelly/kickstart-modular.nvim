@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd({ 'FileChangedShellPost' }, {
   command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
 })
 
--- Added by Jack::
+-- Added by Jack:: (disabled in Jan 2026 when I switched from codecompanion to opencode.lua)
 -- From https://codecompanion.olimorris.dev/getting-started.html#suggested-plugin-workflow
 -- vim.keymap.set({ 'n', 'v' }, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
 -- vim.keymap.set({ 'n', 'v' }, '<LocalLeader>a', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
