@@ -11,9 +11,5 @@ return {
       -- 'echasnovski/mini.pick', -- optional
       -- 'folke/snacks.nvim', -- optional
     },
-    keys = {
-      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'Open Neogit' },
-    },
-    config = true,
   },
 }

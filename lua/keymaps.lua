@@ -73,6 +73,11 @@ vim.api.nvim_create_autocmd({ 'FileChangedShellPost' }, {
   command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
 })
 
+-- Added by Jack: Neogit
+vim.keymap.set('n', '<leader>gg', function()
+  require('neogit').open { kind = 'floating' }
+end, { desc = 'Open Neogit Floating' })
+
 -- Added by Jack:: (disabled in Jan 2026 when I switched from codecompanion to opencode.lua)
 -- From https://codecompanion.olimorris.dev/getting-started.html#suggested-plugin-workflow
 -- vim.keymap.set({ 'n', 'v' }, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
