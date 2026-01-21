@@ -2,10 +2,12 @@ return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      -- Jack commented out the below when trying to get nvim working on NUC
+      -- { 'nvim-treesitter/nvim-treesitter-textobjects' },
     },
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    -- Jack commented out the line below when trying to get nvim working on NUC
+    -- main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       -- Jack added rust and toml:
