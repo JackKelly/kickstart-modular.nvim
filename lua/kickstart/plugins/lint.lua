@@ -32,7 +32,7 @@ return {
       lint.linters_by_ft['janet'] = nil
       lint.linters_by_ft['json'] = nil
       lint.linters_by_ft['markdown'] = { 'vale' }
-      lint.linters_by_ft['python'] = { 'ruff' } -- Jack removed 'mypy' on 2026-01-07
+      lint.linters_by_ft['python'] = { 'ruff' } -- mypy is added in the code below iff it's found in pyproject.toml
       lint.linters_by_ft['rst'] = { 'vale' }
       lint.linters_by_ft['ruby'] = nil
       lint.linters_by_ft['terraform'] = nil
@@ -48,9 +48,32 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.bo.modifiable then
-            -- try_lint without arguments runs the linters defined in `linters_by_ft`
-            -- for the current filetype
-            lint.try_lint()
+            local names = lint.linters_by_ft[vim.bo.filetype] or {}
+
+            -- Dynamically enable mypy if it's configured or listed as a dependency in pyproject.toml
+            if vim.bo.filetype == 'python' then
+              local root = vim.fs.root(0, { 'pyproject.toml', '.git' })
+              if root then
+                local pyproject = root .. '/pyproject.toml'
+                local f = io.open(pyproject, 'r')
+                if f then
+                  local content = f:read '*all'
+                  f:close()
+                  -- Check for:
+                  -- 1. [tool.mypy] section
+                  -- 2. "mypy" or 'mypy' in dependencies lists
+                  -- 3. mypy = ... in Poetry style dependencies
+                  if content:find 'tool%.mypy' or content:find '["\']mypy["\']' or content:find '\nmypy%s*=' or content:find '^mypy%s*=' then
+                    -- Add mypy if it's not already in the list
+                    if not vim.list_contains(names, 'mypy') then
+                      table.insert(names, 'mypy')
+                    end
+                  end
+                end
+              end
+            end
+
+            lint.try_lint(names)
           end
         end,
       })
