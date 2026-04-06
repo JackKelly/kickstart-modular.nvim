@@ -13,6 +13,19 @@ A starting point for Neovim that is:
 
 ## Installation
 
+### New: To update from nvim 0.11 to nvim 0.12+
+
+`sudo apt install tree-sitter-cli`
+
+In neovim:
+- `:Lazy sync`
+- `:TSUpdate`
+- `:TSInstall! all`
+
+If that doesn't work, also try:
+- `:TSInstall! lua query vim vimdoc c bash markdown`
+
+
 ### Install Neovim
 
 Kickstart.nvim targets *only* the latest
