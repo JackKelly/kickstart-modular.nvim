@@ -20,7 +20,6 @@ A starting point for Neovim that is:
 In neovim:
 - `:Lazy sync`
 - `:TSUpdate`
-- `:TSInstall! all`
 
 If that doesn't work, also try:
 - `:TSInstall! lua query vim vimdoc c bash markdown`
